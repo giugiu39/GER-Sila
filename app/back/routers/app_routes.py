@@ -46,10 +46,9 @@ async def get_between_dates(
 
 
 @router.post("/askagent", response_model=AskAgentResponse)
-async def ask_agent(payload: AskAgentRequest) -> AskAgentResponse:
-    """Forward a conversation to the language model and return its response."""
+async def ask_agent(payload: AskAgentRequest, db: DbDep) -> AskAgentResponse:
     try:
-        text = await run_agent(payload.messages, payload.foto)
-        return AskAgentResponse(response=text)
+        reply = await run_agent(payload.messages, db)
+        return AskAgentResponse(response=reply)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc))

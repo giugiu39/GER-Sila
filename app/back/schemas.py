@@ -9,10 +9,7 @@ class Message(BaseModel):
 
 
 class AskAgentRequest(BaseModel):
-    """Request body for the chatbot endpoint."""
-
     messages: list[Message]
-    foto: str | None = None
 
 
 class AskAgentResponse(BaseModel):
